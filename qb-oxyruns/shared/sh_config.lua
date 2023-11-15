@@ -13,7 +13,7 @@ Config.LaunderItem = 'cash_roll'
 Config.PAY_MULTIPLIER = 15 -- Launder payout
 
 Config.carspawn = vector4(195.31, -1847.49, 27.20, 136.58) -- where the car will spawn
-Config.Fuel = "ps-fuel" -- type the name of script you use
+Config.Fuel = "cdn-fuel" -- type the name of script you use
 
 Config.OxyChance = 45 -- %Chance to receive oxy
 Config.OxyItem = 'oxy'

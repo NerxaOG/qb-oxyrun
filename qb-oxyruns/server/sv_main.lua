@@ -22,29 +22,30 @@ local GetLaunderAmount = function()
     return retval
 end
 
-RegisterNetEvent(function()
+RegisterNetEvent('qb-oxyruns:server:Reward', function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player then
         -- Cash
-        local cash = math.random(125, 250)
+        local cash = math.random(250, 300)
         Player.Functions.AddMoney("cash", cash, "oxy-money")
 
 -- Launder
-    local launder = math.random(100)
-    local item = Player.Functions.GetItemByName(Config.LaunderItem)
-    if item and launder <= Config.LaunderChance then
-        local amount = item.amount
-        local removeAmount = GetLaunderAmount()
-        if removeAmount > amount then removeAmount = amount end
-        if Player.Functions.RemoveItem(Config.LaunderItem, removeAmount) then
-            TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[Config.LaunderItem], "remove", removeAmount)
-            Wait(250)
-            local compensation = removeAmount * Config.PAY_MULTIPLIER
-            Player.Functions.AddMoney('cash', compensation, 'oxy-launder')
-            TriggerClientEvent('QBCore:Notify', src, "You have laundered some money...", "success", 2500)
+-- Launder
+        local launder = math.random(100)
+        local item = Player.Functions.GetItemByName(Config.LaunderItem)
+        if item and launder <= Config.LaunderChance then
+            local amount = item.amount
+            local removeAmount = GetLaunderAmount()
+            if removeAmount > amount then removeAmount = amount end
+            if Player.Functions.RemoveItem(Config.LaunderItem, removeAmount) then
+              TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[Config.LaunderItem], "remove", removeAmount)
+              Wait(250)
+              local compensation = removeAmount * Config.PAY_MULTIPLIER
+              Player.Functions.AddMoney('cash', compensation, 'oxy-launder')
+              TriggerClientEvent('QBCore:Notify', src, "You have laundered some money...", "success", 2500)
+            end
         end
-    end
 
         -- Oxy
         local oxy = math.random(100)
@@ -60,7 +61,7 @@ RegisterNetEvent(function()
             TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[Config.RareLootItem], "add", 1)
         end
     end
-end, 'qb-oxyruns:server:Reward')
+end)
 
 QBCore.Functions.CreateCallback('qb-oxyruns:server:StartOxy', function(source, cb)
     local src = source
